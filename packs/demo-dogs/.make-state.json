@@ -1,0 +1,65 @@
+{
+  "stickers": {
+    "01_hello.webp": {
+      "hash": "d2656214688346fd4d40a00589d0b01efc7220fff3982baa7b99229699923b17",
+      "animated": false,
+      "source": "01_hello.png"
+    },
+    "02_happy.webp": {
+      "hash": "27ef82d6e9ab2f6f5e993e5e14733708173dc076479c48826e39333ed181e26d",
+      "animated": false,
+      "source": "02_happy.png"
+    },
+    "03_love.webp": {
+      "hash": "49fdfce0932e46a28061e89f7cd75a3337e1c4ae257ad0419a5d3a0754f35a76",
+      "animated": false,
+      "source": "03_love.png"
+    },
+    "04_lol.webp": {
+      "hash": "51305449e581c4e021f4564c40053cd2af90e5ee8a6fb43837cc7979769d08b5",
+      "animated": false,
+      "source": "04_lol.png"
+    },
+    "05_puppy_eyes.webp": {
+      "hash": "52b9a667e8e4db6b015b3f3959a6a4ee009e9b902a55e1789497415795b47152",
+      "animated": false,
+      "source": "05_puppy_eyes.png"
+    },
+    "06_sad.webp": {
+      "hash": "fb906ed20884fcfbda58afef2b9688236d94963d8d29545303048b3dd4e40c00",
+      "animated": false,
+      "source": "06_sad.png"
+    },
+    "07_huh.webp": {
+      "hash": "09b1c20ae5b3fe09dea8dcd8739d674cd2da8a05a5f7f9252eefdf1b08286015",
+      "animated": false,
+      "source": "07_huh.png"
+    },
+    "08_angry.webp": {
+      "hash": "54640f4c363b562969e59c9e16575c4c7b273eaadd64c1a7852c17d06614e9a3",
+      "animated": false,
+      "source": "08_angry.png"
+    },
+    "09_ball.webp": {
+      "hash": "cd57ddffdc08d29bc2149bb2bc8171e090949a3da84b505d244bec5d6671c08d",
+      "animated": false,
+      "source": "09_ball.png"
+    },
+    "10_sleepy.webp": {
+      "hash": "85102eb92ea9cbe83c7a326c7b239d390725f1375a5605060f6f40b852fb741b",
+      "animated": false,
+      "source": "10_sleepy.png"
+    },
+    "11_ok.webp": {
+      "hash": "b58e0e120fa9adeaba10d9fd60cd7cf2551a22dc23e678dcb55424416c84b362",
+      "animated": false,
+      "source": "11_ok.png"
+    },
+    "12_bye.webp": {
+      "hash": "54cee4f2480fa1e1aa7df18cfe45befa7ca717bce25c537b34d8bca6ced85c6f",
+      "animated": false,
+      "source": "12_bye.png"
+    }
+  },
+  "tray": "file:41ca6360b4091277b640f92b112ce4110fa21249bf499282ce517ccb74c1a47f"
+}

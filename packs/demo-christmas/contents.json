@@ -1,0 +1,87 @@
+{
+  "identifier": "demo-christmas",
+  "name": "Demo Christmas",
+  "publisher": "Sticker Shim demo",
+  "tray_image_file": "tray.png",
+  "image_data_version": "1",
+  "avoid_cache": false,
+  "animated_sticker_pack": false,
+  "stickers": [
+    {
+      "image_file": "01_merry.webp",
+      "emojis": [
+        "🎄",
+        "🎅"
+      ],
+      "name": "merry christmas"
+    },
+    {
+      "image_file": "02_reindeer.webp",
+      "emojis": [
+        "🦌",
+        "🐶"
+      ],
+      "name": "reindeer"
+    },
+    {
+      "image_file": "03_tree.webp",
+      "emojis": [
+        "🎄"
+      ],
+      "name": "tree"
+    },
+    {
+      "image_file": "04_gift.webp",
+      "emojis": [
+        "🎁"
+      ],
+      "name": "gift"
+    },
+    {
+      "image_file": "05_gingerbread.webp",
+      "emojis": [
+        "🍪",
+        "😋"
+      ],
+      "name": "gingerbread"
+    },
+    {
+      "image_file": "06_candy_cane.webp",
+      "emojis": [
+        "🍬"
+      ],
+      "name": "candy cane"
+    },
+    {
+      "image_file": "07_stocking.webp",
+      "emojis": [
+        "🧦"
+      ],
+      "name": "stocking"
+    },
+    {
+      "image_file": "08_bauble.webp",
+      "emojis": [
+        "🔮",
+        "✨"
+      ],
+      "name": "bauble"
+    },
+    {
+      "image_file": "09_gift_cat.webp",
+      "emojis": [
+        "🎁",
+        "😻"
+      ],
+      "name": "for you"
+    },
+    {
+      "image_file": "10_pip_santa.webp",
+      "emojis": [
+        "🎅",
+        "🐦"
+      ],
+      "name": "ho ho ho"
+    }
+  ]
+}

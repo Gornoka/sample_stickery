@@ -1,0 +1,65 @@
+{
+  "stickers": {
+    "01_hi.webp": {
+      "hash": "8614b3e346ce32aac3509ad10b4e1ab506cfd40ab42baef90fd810d1d985714e",
+      "animated": false,
+      "source": "01_hi.png"
+    },
+    "02_happy.webp": {
+      "hash": "b93117a5e0443bc0f10ad6b9106c2c813e3667d86bb5ef410df3c26b56afbf78",
+      "animated": false,
+      "source": "02_happy.png"
+    },
+    "03_love.webp": {
+      "hash": "1154ff8b6d3eccfebfbb6832ca711895f4051bee6e06054f7828d68af043c02d",
+      "animated": false,
+      "source": "03_love.png"
+    },
+    "04_lol.webp": {
+      "hash": "d2924cad1d987d9518ac356398a7648af9856f20c2118a071f768d3bccec5d97",
+      "animated": false,
+      "source": "04_lol.png"
+    },
+    "05_sad.webp": {
+      "hash": "dcbec9aa57139cc1a61516052d4a0ec92fae1fe784baf677378a5253f2e85562",
+      "animated": false,
+      "source": "05_sad.png"
+    },
+    "06_angry.webp": {
+      "hash": "c367dcc1d274e3b40050114baf01554f453c2a7bbf7f01945b148d24fc271d18",
+      "animated": false,
+      "source": "06_angry.png"
+    },
+    "07_wow.webp": {
+      "hash": "1d6682ef60763d2bab231d89e3716940e51846fefedda935ee89f379e1941dd6",
+      "animated": false,
+      "source": "07_wow.png"
+    },
+    "08_sleepy.webp": {
+      "hash": "83e37082eaebe0f2a511624b9f7ac7aee580c174006efb1feeb01108778a7ff2",
+      "animated": false,
+      "source": "08_sleepy.png"
+    },
+    "09_cool.webp": {
+      "hash": "4ad0b66e0b3d7149fcd54f33117cc9cf750426708e7710ff4b3ff1f7b85d352a",
+      "animated": false,
+      "source": "09_cool.png"
+    },
+    "10_ok.webp": {
+      "hash": "f6c30a042d5cc392bfb9bd697ba2f4d2d8b8db1b7b1b00efac3731513858269a",
+      "animated": false,
+      "source": "10_ok.png"
+    },
+    "11_coffee.webp": {
+      "hash": "d90a10ab6e0bdbea87b3c6137fa80aad6fa9428105f42ece124a5524e041a41c",
+      "animated": false,
+      "source": "11_coffee.png"
+    },
+    "12_thanks.webp": {
+      "hash": "5df1bf6c77386268f520c946b500b5802615333d6d964824f157ed41e9b85aa0",
+      "animated": false,
+      "source": "12_thanks.png"
+    }
+  },
+  "tray": "file:854732a24c27956b14bcd66418ecf0b347f927ce4632cf975b7c6da16c77a95f"
+}

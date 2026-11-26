@@ -1,0 +1,45 @@
+{
+  "stickers": {
+    "01_hi.webp": {
+      "hash": "88a5cc2a798b0bb3520e5619b2b9d2619680834ab4f31faaef4ea8b0559c8f0f",
+      "animated": false,
+      "source": "01_hi.png"
+    },
+    "02_shiny.webp": {
+      "hash": "ac03229e888b5d15f5cf5871626b34db3f32b5959678be5cab9f8d83fc3327e7",
+      "animated": false,
+      "source": "02_shiny.png"
+    },
+    "03_love.webp": {
+      "hash": "887018d5d893e9cd6406bb726b5d4c96adc04232a3337a52e979a215e219e9db",
+      "animated": false,
+      "source": "03_love.png"
+    },
+    "04_happy.webp": {
+      "hash": "e811801d33424071c5bab4171be09ee13b9eca9aa91b58ea110e03e24009f597",
+      "animated": false,
+      "source": "04_happy.png"
+    },
+    "05_wow.webp": {
+      "hash": "870f9e74e0b1ed25b15d118cfa5718e6c1d80a4444a4dc26686fb630ea4fc20d",
+      "animated": false,
+      "source": "05_wow.png"
+    },
+    "06_sad.webp": {
+      "hash": "7b0fef6730b6ab34f85632bf9db6a0feed4e5468261689ef28c552d5c17d921e",
+      "animated": false,
+      "source": "06_sad.png"
+    },
+    "07_sleepy.webp": {
+      "hash": "82424c5522ad1a565e1540bf8d560699e13355034411da83ad7855c62ca915cc",
+      "animated": false,
+      "source": "07_sleepy.png"
+    },
+    "08_thanks.webp": {
+      "hash": "a45255fc1e79381f6e65d0d76b94592919242e7d72a5b9b84facfc2809a26b04",
+      "animated": false,
+      "source": "08_thanks.png"
+    }
+  },
+  "tray": "file:513c80dde9a0d6775b2e7b44d294485e8da8e220abab37bee1677fa4e12eeb1c"
+}

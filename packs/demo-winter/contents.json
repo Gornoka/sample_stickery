@@ -1,0 +1,66 @@
+{
+  "identifier": "demo-winter",
+  "name": "Demo Snow Days",
+  "publisher": "Sticker Shim demo",
+  "tray_image_file": "tray.png",
+  "image_data_version": "1",
+  "avoid_cache": false,
+  "animated_sticker_pack": true,
+  "stickers": [
+    {
+      "image_file": "01_snowman.webp",
+      "emojis": [
+        "⛄",
+        "❄️"
+      ],
+      "name": "snowman"
+    },
+    {
+      "image_file": "02_snowflake.webp",
+      "emojis": [
+        "❄️"
+      ],
+      "name": "snowflake"
+    },
+    {
+      "image_file": "03_cocoa.webp",
+      "emojis": [
+        "☕",
+        "🍫"
+      ],
+      "name": "hot cocoa"
+    },
+    {
+      "image_file": "04_cold_cat.webp",
+      "emojis": [
+        "🥶",
+        "🐱"
+      ],
+      "name": "so cold"
+    },
+    {
+      "image_file": "05_lights.webp",
+      "emojis": [
+        "🎄",
+        "✨"
+      ],
+      "name": "lights"
+    },
+    {
+      "image_file": "06_snow_dog.webp",
+      "emojis": [
+        "🐶",
+        "❄️"
+      ],
+      "name": "snow day"
+    },
+    {
+      "image_file": "07_pip_snow.webp",
+      "emojis": [
+        "🐦",
+        "❄️"
+      ],
+      "name": "pip in snow"
+    }
+  ]
+}

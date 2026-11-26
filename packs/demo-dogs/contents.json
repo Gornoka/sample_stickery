@@ -1,0 +1,104 @@
+{
+  "identifier": "demo-dogs",
+  "name": "Demo Dogs",
+  "publisher": "Sticker Shim demo",
+  "tray_image_file": "tray.png",
+  "image_data_version": "1",
+  "avoid_cache": false,
+  "animated_sticker_pack": false,
+  "stickers": [
+    {
+      "image_file": "01_hello.webp",
+      "emojis": [
+        "👋",
+        "🐶"
+      ],
+      "name": "hello"
+    },
+    {
+      "image_file": "02_happy.webp",
+      "emojis": [
+        "😄",
+        "🐕"
+      ],
+      "name": "happy"
+    },
+    {
+      "image_file": "03_love.webp",
+      "emojis": [
+        "🥰",
+        "❤️"
+      ],
+      "name": "love"
+    },
+    {
+      "image_file": "04_lol.webp",
+      "emojis": [
+        "😂"
+      ],
+      "name": "lol"
+    },
+    {
+      "image_file": "05_puppy_eyes.webp",
+      "emojis": [
+        "🥺",
+        "🙏"
+      ],
+      "name": "puppy eyes"
+    },
+    {
+      "image_file": "06_sad.webp",
+      "emojis": [
+        "😢"
+      ],
+      "name": "sad"
+    },
+    {
+      "image_file": "07_huh.webp",
+      "emojis": [
+        "🤔",
+        "❓"
+      ],
+      "name": "huh?"
+    },
+    {
+      "image_file": "08_angry.webp",
+      "emojis": [
+        "😠",
+        "🐺"
+      ],
+      "name": "grr"
+    },
+    {
+      "image_file": "09_ball.webp",
+      "emojis": [
+        "🎾",
+        "🐕"
+      ],
+      "name": "play?"
+    },
+    {
+      "image_file": "10_sleepy.webp",
+      "emojis": [
+        "😴",
+        "💤"
+      ],
+      "name": "nap"
+    },
+    {
+      "image_file": "11_ok.webp",
+      "emojis": [
+        "👍"
+      ],
+      "name": "ok"
+    },
+    {
+      "image_file": "12_bye.webp",
+      "emojis": [
+        "👋",
+        "🐾"
+      ],
+      "name": "bye"
+    }
+  ]
+}

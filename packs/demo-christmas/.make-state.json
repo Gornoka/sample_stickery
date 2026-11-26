@@ -1,0 +1,55 @@
+{
+  "stickers": {
+    "01_merry.webp": {
+      "hash": "1e8ac7b091fcfb4f092693e7c59f1d94af1d4d35af758dab564c2f6e2d2df9ef",
+      "animated": false,
+      "source": "01_merry.png"
+    },
+    "02_reindeer.webp": {
+      "hash": "311cb33f070c4cae1aff3752b4fec3cdccde8662937a909ace7e19a034170d97",
+      "animated": false,
+      "source": "02_reindeer.png"
+    },
+    "03_tree.webp": {
+      "hash": "cf15b7f89c8f721f811c63023ce2ecc1f7e1613b534ab8cf79893a51db521435",
+      "animated": false,
+      "source": "03_tree.png"
+    },
+    "04_gift.webp": {
+      "hash": "957c5f959114bcd7ebe319302f54f825d486c10e798f729046480bdd58a179e2",
+      "animated": false,
+      "source": "04_gift.png"
+    },
+    "05_gingerbread.webp": {
+      "hash": "6446b31436fe01ce6f49bbeced5cd1d512ac4b4bfe7cddd89d05f145bd043fa8",
+      "animated": false,
+      "source": "05_gingerbread.png"
+    },
+    "06_candy_cane.webp": {
+      "hash": "436abcc68e8e49e65c09044cd0272be6c2d4a3312edfd8d8f4c2a8360f9f14f3",
+      "animated": false,
+      "source": "06_candy_cane.png"
+    },
+    "07_stocking.webp": {
+      "hash": "6327f86c71407a8823a02dddee361807ea75d1dd1784d3df233af1675ee1d3bc",
+      "animated": false,
+      "source": "07_stocking.png"
+    },
+    "08_bauble.webp": {
+      "hash": "1ac0dce161344909c20f71c6852f46312259bf883457f829de90a4f06ecd67bb",
+      "animated": false,
+      "source": "08_bauble.png"
+    },
+    "09_gift_cat.webp": {
+      "hash": "9490a228ec6684fca972f6e632d94e7acb4f62aabd11f98b71e3f8c577782903",
+      "animated": false,
+      "source": "09_gift_cat.png"
+    },
+    "10_pip_santa.webp": {
+      "hash": "8dec58a52654f13f336e57825dac2d8ce150189c45c304e958379ec9294ebb39",
+      "animated": false,
+      "source": "10_pip_santa.png"
+    }
+  },
+  "tray": "file:29fa1b753c14f7ab590e14ce28ac92615f53e2887bd3aeded24edf85a71f3346"
+}

@@ -1,0 +1,40 @@
+{
+  "stickers": {
+    "01_snowman.webp": {
+      "hash": "c07abc6b9c0c9851ed26e8940e0468e88ba0897711fa2dd19cc353dc9bf753d7",
+      "animated": true,
+      "source": "01_snowman.webp"
+    },
+    "02_snowflake.webp": {
+      "hash": "57663b8a7f7d6ad89a1618eaa2fa64ab75e70c6f83dc44552c152d875c1f5b53",
+      "animated": true,
+      "source": "02_snowflake.webp"
+    },
+    "03_cocoa.webp": {
+      "hash": "232665892414c513e7742868e0f657238e9b0068026e08d376e79bbd6af46b17",
+      "animated": true,
+      "source": "03_cocoa.webp"
+    },
+    "04_cold_cat.webp": {
+      "hash": "8ed6fb4e4194796ef31fb0e8642561c6dd3ad6b77025439153d9a40a903db7fd",
+      "animated": true,
+      "source": "04_cold_cat.webp"
+    },
+    "05_lights.webp": {
+      "hash": "5a451ee49a3576e65c5f1621f685b8fea758276661c0a3632b61077ea230fa93",
+      "animated": true,
+      "source": "05_lights.webp"
+    },
+    "06_snow_dog.webp": {
+      "hash": "d5f3154b9299d286472d52bc0509215d708eda8f5cbff0e7f5b268f192d203ad",
+      "animated": true,
+      "source": "06_snow_dog.webp"
+    },
+    "07_pip_snow.webp": {
+      "hash": "0ddb31030ea45965da886c9dd57699a2000781fedd129b22ce53f7f630e7b280",
+      "animated": true,
+      "source": "07_pip_snow.webp"
+    }
+  },
+  "tray": "file:a9f70748879a45e95e73a549db799ba5efc34fd59db574f0d3c02cff81e99069"
+}

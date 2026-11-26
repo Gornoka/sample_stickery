@@ -1,0 +1,70 @@
+{
+  "identifier": "demo-pip",
+  "name": "Pip the Magpie",
+  "publisher": "Sticker Shim demo",
+  "tray_image_file": "tray.png",
+  "image_data_version": "1",
+  "avoid_cache": false,
+  "animated_sticker_pack": false,
+  "stickers": [
+    {
+      "image_file": "01_hi.webp",
+      "emojis": [
+        "👋",
+        "🐦"
+      ],
+      "name": "hi"
+    },
+    {
+      "image_file": "02_shiny.webp",
+      "emojis": [
+        "✨",
+        "🌟"
+      ],
+      "name": "shiny!"
+    },
+    {
+      "image_file": "03_love.webp",
+      "emojis": [
+        "😍",
+        "❤️"
+      ],
+      "name": "love"
+    },
+    {
+      "image_file": "04_happy.webp",
+      "emojis": [
+        "😊"
+      ],
+      "name": "happy"
+    },
+    {
+      "image_file": "05_wow.webp",
+      "emojis": [
+        "😮"
+      ],
+      "name": "wow"
+    },
+    {
+      "image_file": "06_sad.webp",
+      "emojis": [
+        "😢"
+      ],
+      "name": "sad"
+    },
+    {
+      "image_file": "07_sleepy.webp",
+      "emojis": [
+        "😴"
+      ],
+      "name": "sleepy"
+    },
+    {
+      "image_file": "08_thanks.webp",
+      "emojis": [
+        "🙏"
+      ],
+      "name": "thanks"
+    }
+  ]
+}
