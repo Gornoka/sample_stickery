@@ -4,9 +4,9 @@
     {
       "identifier": "demo-cats",
       "name": "Demo Cats",
-      "publisher": "Sticker Shim demo",
+      "publisher": "Shinybox Demo",
       "tray_image_file": "tray.png",
-      "image_data_version": "5391f26dc8c1",
+      "image_data_version": "0481447375e7",
       "avoid_cache": false,
       "animated_sticker_pack": false,
       "stickers": [
@@ -110,9 +110,9 @@
     {
       "identifier": "demo-christmas",
       "name": "Demo Christmas",
-      "publisher": "Sticker Shim demo",
+      "publisher": "Shinybox Demo",
       "tray_image_file": "tray.png",
-      "image_data_version": "67110ea1ca5a",
+      "image_data_version": "172cf74d9e84",
       "avoid_cache": false,
       "animated_sticker_pack": false,
       "stickers": [
@@ -197,9 +197,9 @@
     {
       "identifier": "demo-dogs",
       "name": "Demo Dogs",
-      "publisher": "Sticker Shim demo",
+      "publisher": "Shinybox Demo",
       "tray_image_file": "tray.png",
-      "image_data_version": "6e1f7c84dec6",
+      "image_data_version": "932d5d14894e",
       "avoid_cache": false,
       "animated_sticker_pack": false,
       "stickers": [
@@ -301,9 +301,9 @@
     {
       "identifier": "demo-pip",
       "name": "Pip the Magpie",
-      "publisher": "Sticker Shim demo",
+      "publisher": "Shinybox Demo",
       "tray_image_file": "tray.png",
-      "image_data_version": "d57e0990b57a",
+      "image_data_version": "d071f9a69ce6",
       "avoid_cache": false,
       "animated_sticker_pack": false,
       "stickers": [
@@ -371,9 +371,9 @@
     {
       "identifier": "demo-winter",
       "name": "Demo Snow Days",
-      "publisher": "Sticker Shim demo",
+      "publisher": "Shinybox Demo",
       "tray_image_file": "tray.png",
-      "image_data_version": "7128cd9f55fa",
+      "image_data_version": "51e1b07cd631",
       "avoid_cache": false,
       "animated_sticker_pack": true,
       "stickers": [

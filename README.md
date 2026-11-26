@@ -1,6 +1,6 @@
-# Sticker Shim demo packs
+# Shinybox demo packs
 
-Original demo sticker packs for [Sticker Shim](https://github.com/Gornoka/sticker_shim): for trying the import and for
+Original demo sticker packs for [Shinybox](https://github.com/Gornoka/sticker_shim) (formerly Sticker Shim): for trying the import and for
 the app's release screenshots. All art is drawn in code (`art/`), no third-party images.
 
 | Pack | Identifier | Stickers | Kind | Group |
@@ -11,7 +11,7 @@ the app's release screenshots. All art is drawn in code (`art/`), no third-party
 | Demo Snow Days | `demo-winter` | 7 | animated | Winter |
 | Demo Christmas | `demo-christmas` | 10 | still | Winter › Christmas |
 
-Pip the magpie is Sticker Shim's mascot.
+Pip the magpie is Shinybox's mascot.
 
 ![All stickers](preview.png)
 

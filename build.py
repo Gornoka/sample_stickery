@@ -19,7 +19,7 @@ from art.packs import PACKS, Pack
 
 ROOT: Path = Path(__file__).resolve().parent
 # Publisher shown in the app for every demo pack.
-PUBLISHER: str = "Sticker Shim demo"
+PUBLISHER: str = "Shinybox Demo"
 
 type JsonObject = dict[str, object]
 
