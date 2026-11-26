@@ -2,6 +2,11 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag, e.g. v2 (created on the current commit)"
+        required: true
 permissions:
   contents: write
 jobs:
@@ -15,4 +20,5 @@ jobs:
       - run: python release.py
       - env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "Demo packs $GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: gh release create "$TAG" dist/*.zip --target "$GITHUB_SHA" --title "Demo packs $TAG" --notes-file RELEASE_NOTES.md

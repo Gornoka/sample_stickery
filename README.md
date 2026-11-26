@@ -51,6 +51,6 @@ python release.py                            # dist/*.zip
 
 ## Release
 
-Push a tag `v<N>`: the `Release` workflow runs `release.py` and attaches `dist/*.zip` to a GitHub release, with
+Push a tag `v<N>` or run the `Release` workflow by hand with a tag name: it runs `release.py` and attaches `dist/*.zip` to a GitHub release, with
 `RELEASE_NOTES.md` as the text. Without Actions: `python release.py`, then
 `gh release create v<N> dist/*.zip --notes-file RELEASE_NOTES.md`.
