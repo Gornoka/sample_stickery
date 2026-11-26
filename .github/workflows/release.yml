@@ -1,5 +1,9 @@
 name: Release
 on:
+  # A release created on GitHub (web UI or `gh release create vN`) gets the zips attached.
+  release:
+    types: [published]
+  # Pushing a tag v* or running by hand creates the release itself.
   push:
     tags: ["v*"]
   workflow_dispatch:
@@ -16,7 +20,22 @@ jobs:
       - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v7
       - run: uv run --frozen release.py
-      - env:
+      - if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+          BODY: ${{ github.event.release.body }}
+        run: |
+          gh release upload "$TAG" dist/*.zip --clobber
+          if [ -z "$BODY" ]; then gh release edit "$TAG" --notes-file RELEASE_NOTES.md; fi
+      - if: github.event_name != 'release'
+        env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ inputs.tag || github.ref_name }}
-        run: gh release create "$TAG" dist/*.zip --target "$GITHUB_SHA" --title "Demo packs $TAG" --notes-file RELEASE_NOTES.md
+        run: |
+          # a release made on GitHub also pushes its tag; that run only attaches the zips above
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.zip --clobber
+          else
+            gh release create "$TAG" dist/*.zip --target "$GITHUB_SHA" --title "Demo packs $TAG" --notes-file RELEASE_NOTES.md
+          fi

@@ -59,6 +59,7 @@ uv run --extra typecheck basedpyright
 
 ## Release
 
-Push a tag `v<N>` or run the `Release` workflow by hand with a tag name: it runs `uv run release.py` and attaches `dist/*.zip` to a GitHub release, with
-`RELEASE_NOTES.md` as the text. Without Actions: `uv run release.py`, then
-`gh release create v<N> dist/*.zip --notes-file RELEASE_NOTES.md`.
+Create a release on GitHub (*Releases → Draft a new release*, new tag `v<N>`, publish): the `Release` workflow runs
+`uv run release.py` and attaches `dist/*.zip` to it; an empty description is filled from `RELEASE_NOTES.md`. Pushing a
+tag `v<N>` or running the workflow by hand with a tag name creates the release itself. Without Actions:
+`uv run release.py`, then `gh release create v<N> dist/*.zip --notes-file RELEASE_NOTES.md`.
