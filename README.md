@@ -33,6 +33,7 @@ art/        Python package: draw.py (characters, props), packs.py (packs, sticke
             build_images.py + render.js (renderer), sheet.py (contact sheet)
 images/     rendered 512x512 PNGs and animated WebPs, one folder per pack (plus tray.png)
 packs/      stickers.py make output (contents.json with names and emojis)
+docs/       GitHub Pages: the Shinybox privacy policy (copy of sticker_shim's PRIVACY.md, PRIVACY.de.md)
 site/       stickers.py publish output: index.json plus pack folders, served for URL import
 build.py    images/ -> packs/ -> site/ (needs a sticker_shim checkout for tools/stickers.py)
 release.py  site/ -> dist/*.zip (no Sticker Shim tools needed)
