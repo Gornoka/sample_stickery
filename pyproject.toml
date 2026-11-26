@@ -1,0 +1,37 @@
+[project]
+name = "sample-stickery"
+version = "0.1.0"
+description = "Original demo sticker packs for Sticker Shim, drawn in code, and the scripts that build and release them."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "pillow>=13.0.0",
+]
+
+[project.optional-dependencies]
+typecheck = [
+    "basedpyright==1.40.2",
+]
+
+[tool.uv]
+# Ignore releases newer than 7 days: a package published this morning has not been looked at by anyone yet.
+exclude-newer = "P7D"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["art"]
+
+# No [tool.ruff] here: the repo's root ruff.toml is the single source of truth.
+[tool.basedpyright]
+pythonVersion = "3.14"
+typeCheckingMode = "strict"
+reportAny = "error"
+reportExplicitAny = "error"
+reportUnusedCallResult = "error"
+reportMissingTypeStubs = "warning"
+venvPath = "."
+venv = ".venv"
+exclude = ["**/.venv", "**/__pycache__", "work", "build", "dist"]

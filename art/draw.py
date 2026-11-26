@@ -4,13 +4,16 @@ from __future__ import annotations
 
 import math
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-INK = "#2b1d14"
-BLUSH = "#ff8fa3"
-FONT = "Inter, 'DejaVu Sans', Arial, sans-serif"
+# Shared palette: one outline ink and one blush so every character matches.
+INK: str = "#2b1d14"
+BLUSH: str = "#ff8fa3"
+# Inter if installed, else the DejaVu Sans that ships with most Linux renderers.
+FONT: str = "Inter, 'DejaVu Sans', Arial, sans-serif"
 
-OUTLINE = (
+# White die-cut edge with a soft drop shadow, applied to the whole sticker body.
+OUTLINE: str = (
     '<filter id="cut" x="-15%" y="-15%" width="130%" height="130%">'
     '<feMorphology in="SourceAlpha" operator="dilate" radius="11" result="d"/>'
     '<feFlood flood-color="#ffffff"/><feComposite in2="d" operator="in" result="w"/>'
@@ -22,11 +25,22 @@ OUTLINE = (
 )
 
 
-OVER = re.compile(r"<!--over-->(.*?)<!--/over-->", re.S)
+# Overlay markup that stays outside the die-cut filter (falling snow).
+OVER: re.Pattern[str] = re.compile(r"<!--over-->(.*?)<!--/over-->", re.S)
 
 
 def svg(body: str, defs: str = "") -> str:
-    """A 512x512 sticker; everything inside gets the white die-cut edge, except overlays (falling snow)."""
+    """Wrap a sticker body in a 512x512 SVG with the white die-cut edge.
+
+    Everything inside gets the edge, except overlays marked ``<!--over-->`` (falling snow).
+
+    Args:
+        body (str): SVG markup of the sticker.
+        defs (str): Extra ``<defs>`` content, such as gradients.
+
+    Returns:
+        str: A complete SVG document.
+    """
     over = "".join(OVER.findall(body))
     body = OVER.sub("", body)
     return (
@@ -40,6 +54,18 @@ def svg(body: str, defs: str = "") -> str:
 
 
 def heart(x: float, y: float, s: float = 1.0, color: str = "#ff4d6d", rot: float = 0) -> str:
+    """Draw a heart.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        s (float): Scale factor.
+        color (str): Fill colour.
+        rot (float): Rotation in degrees.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<path transform="translate({x} {y}) rotate({rot}) scale({s})" fill="{color}" '
         'd="M0 12 C-30 -10 -22 -38 0 -24 C22 -38 30 -10 0 12 Z"/>'
@@ -47,7 +73,19 @@ def heart(x: float, y: float, s: float = 1.0, color: str = "#ff4d6d", rot: float
 
 
 def star(x: float, y: float, r: float, color: str = "#ffd23f", rot: float = 0) -> str:
-    pts = []
+    """Draw a five-pointed star.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        r (float): Outer radius.
+        color (str): Fill and stroke colour.
+        rot (float): Rotation in degrees.
+
+    Returns:
+        str: SVG markup.
+    """
+    pts: list[str] = []
     for i in range(10):
         a = math.pi / 5 * i - math.pi / 2
         rr = r if i % 2 == 0 else r * 0.45
@@ -59,6 +97,17 @@ def star(x: float, y: float, r: float, color: str = "#ffd23f", rot: float = 0) -
 
 
 def sparkle(x: float, y: float, r: float, color: str = "#ffd23f") -> str:
+    """Draw a four-pointed sparkle.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        r (float): Radius of the points.
+        color (str): Fill colour.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<path transform="translate({x} {y})" fill="{color}" d="M0 {-r} Q{r * 0.15} {-r * 0.15} {r} 0 '
         f'Q{r * 0.15} {r * 0.15} 0 {r} Q{-r * 0.15} {r * 0.15} {-r} 0 Q{-r * 0.15} {-r * 0.15} 0 {-r} Z"/>'
@@ -66,12 +115,37 @@ def sparkle(x: float, y: float, r: float, color: str = "#ffd23f") -> str:
 
 
 def drop(x: float, y: float, s: float = 1.0, color: str = "#5ec8ff") -> str:
+    """Draw a tear or sweat drop.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        s (float): Scale factor.
+        color (str): Fill colour.
+
+    Returns:
+        str: SVG markup.
+    """
     return f'<path transform="translate({x} {y}) scale({s})" fill="{color}" d="M0 -22 C10 -6 16 2 16 10 A16 16 0 0 1 -16 10 C-16 2 -10 -6 0 -22 Z"/>'
 
 
 def text(
     x: float, y: float, s: str, size: int = 64, color: str = "#ffffff", stroke: str = "#ff4d6d", rot: float = 0
 ) -> str:
+    """Draw bold outlined text.
+
+    Args:
+        x (float): Anchor x (text is centred on it).
+        y (float): Baseline y.
+        s (str): The text.
+        size (int): Font size.
+        color (str): Fill colour.
+        stroke (str): Outline colour.
+        rot (float): Rotation in degrees around the anchor.
+
+    Returns:
+        str: SVG markup.
+    """
     common = f'x="{x}" y="{y}" font-family="{FONT}" font-weight="900" font-size="{size}" text-anchor="middle" transform="rotate({rot} {x} {y})"'
     return (
         f'<text {common} fill="{stroke}" stroke="{stroke}" stroke-width="{size * 0.32:.0f}" stroke-linejoin="round">{s}</text>'
@@ -80,6 +154,15 @@ def text(
 
 
 def zzz(x: float, y: float) -> str:
+    """Draw three rising "Z" letters.
+
+    Args:
+        x (float): x of the first letter.
+        y (float): Baseline y of the first letter.
+
+    Returns:
+        str: SVG markup.
+    """
     return "".join(
         f'<text x="{x + i * 34}" y="{y - i * 40}" font-family="{FONT}" font-weight="900" font-size="{44 + i * 14}" '
         f'fill="#7b8cff">Z</text>'
@@ -88,8 +171,21 @@ def zzz(x: float, y: float) -> str:
 
 
 def snowflake(x: float, y: float, r: float, color: str = "#ffffff", rot: float = 0, width: float = 0) -> str:
+    """Draw a six-armed snowflake.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        r (float): Arm length.
+        color (str): Stroke colour.
+        rot (float): Rotation in degrees.
+        width (float): Stroke width; 0 picks one from ``r``.
+
+    Returns:
+        str: SVG markup.
+    """
     w = width or max(2.5, r * 0.14)
-    arms = []
+    arms: list[str] = []
     for i in range(6):
         a = 60 * i
         b = r * 0.55
@@ -107,6 +203,19 @@ def snowflake(x: float, y: float, r: float, color: str = "#ffffff", rot: float =
 def mug(
     x: float, y: float, s: float = 1.0, color: str = "#e94f4f", drink: str = "#7a4a2a", steam: float | None = 0.0
 ) -> str:
+    """Draw a mug with a drink and optional animated steam.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        s (float): Scale factor.
+        color (str): Mug colour.
+        drink (str): Drink colour.
+        steam (float | None): Steam animation phase in [0, 1), or None for no steam.
+
+    Returns:
+        str: SVG markup.
+    """
     out = f'<g transform="translate({x} {y}) scale({s})">'
     if steam is not None:
         for i, dx in enumerate((-28, 0, 28)):
@@ -131,6 +240,18 @@ def mug(
 
 
 def santa_hat(x: float, y: float, s: float = 1.0, rot: float = 0, bob: float = 0) -> str:
+    """Draw a Santa hat.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        s (float): Scale factor.
+        rot (float): Rotation in degrees.
+        bob (float): Horizontal offset of the bobble.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<g transform="translate({x} {y}) rotate({rot}) scale({s})">'
         f'<path d="M-120 0 C-100 -110 20 -150 110 -90 C130 -70 {150 + bob} -20 {150 + bob} 10 L110 -40 C90 -20 80 -10 120 0 Z" fill="#e63946"/>'
@@ -142,6 +263,16 @@ def santa_hat(x: float, y: float, s: float = 1.0, rot: float = 0, bob: float = 0
 
 
 def antlers(x: float, y: float, s: float = 1.0) -> str:
+    """Draw a pair of antlers.
+
+    Args:
+        x (float): Centre x between the antlers.
+        y (float): y of the antler bases.
+        s (float): Scale factor.
+
+    Returns:
+        str: SVG markup.
+    """
     one = (
         '<path d="M0 0 C-10 -60 -50 -90 -80 -140 M-30 -60 C-60 -70 -90 -60 -110 -80 M-55 -105 C-40 -130 -40 -150 -30 -170" '
         'stroke="#8a5a32" stroke-width="20" fill="none" stroke-linecap="round"/>'
@@ -153,6 +284,19 @@ def antlers(x: float, y: float, s: float = 1.0) -> str:
 
 
 def scarf(cx: float, y: float, w: float, color: str = "#e63946", stripe: str = "#ffffff", swing: float = 0) -> str:
+    """Draw a striped scarf with a hanging end.
+
+    Args:
+        cx (float): Centre x of the neck.
+        y (float): Top y of the scarf.
+        w (float): Width around the neck.
+        color (str): Scarf colour.
+        stripe (str): Stripe colour.
+        swing (float): Sideways offset of the hanging end.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<g><path d="M{cx - w / 2} {y} Q{cx} {y + 40} {cx + w / 2} {y} L{cx + w / 2 + 4} {y + 36} Q{cx} {y + 80} {cx - w / 2 - 4} {y + 36} Z" fill="{color}"/>'
         f'<path d="M{cx + w / 4} {y + 40} L{cx + w / 4 + 10 + swing} {y + 140} L{cx + w / 4 + 60 + swing} {y + 128} L{cx + w / 4 + 44} {y + 34} Z" fill="{color}"/>'
@@ -163,6 +307,18 @@ def scarf(cx: float, y: float, w: float, color: str = "#e63946", stripe: str = "
 
 
 def beanie(x: float, y: float, s: float = 1.0, color: str = "#3a86ff", band: str = "#ffffff") -> str:
+    """Draw a beanie with a bobble.
+
+    Args:
+        x (float): Centre x in sticker units (0..512).
+        y (float): Centre y in sticker units (0..512).
+        s (float): Scale factor.
+        color (str): Hat colour.
+        band (str): Band and bobble colour.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<g transform="translate({x} {y}) scale({s})">'
         f'<path d="M-130 10 C-130 -120 130 -120 130 10 Z" fill="{color}"/>'
@@ -176,21 +332,37 @@ def beanie(x: float, y: float, s: float = 1.0, color: str = "#3a86ff", band: str
 # --- faces -------------------------------------------------------------------
 
 
-@dataclass
+@dataclass(frozen=True, slots=True)
 class Face:
-    """Eye and mouth anchors of a character head."""
+    """Eye and mouth anchors of a character head.
+
+    Attributes:
+        lx (float): x of the left eye.
+        rx (float): x of the right eye.
+        ey (float): y of both eyes.
+        my (float): y of the mouth.
+        eye (float): Eye scale factor.
+    """
 
     lx: float
     rx: float
     ey: float
     my: float
     eye: float = 1.0
-    extra: list[str] = field(default_factory=list)
 
 
 def eyes(f: Face, kind: str) -> str:
+    """Draw both eyes of a face.
+
+    Args:
+        f (Face): Anchors of the face.
+        kind (str): normal, big, happy, closed, laugh, heart, sad, angry, wink or shades.
+
+    Returns:
+        str: SVG markup.
+    """
     s = f.eye
-    out = []
+    out: list[str] = []
     for i, x in enumerate((f.lx, f.rx)):
         k = kind
         if kind == "wink":
@@ -257,6 +429,15 @@ def eyes(f: Face, kind: str) -> str:
 
 
 def blush(f: Face, strong: bool = False) -> str:
+    """Draw blush on both cheeks.
+
+    Args:
+        f (Face): Anchors of the face.
+        strong (bool): Whether the blush is more opaque.
+
+    Returns:
+        str: SVG markup.
+    """
     o = ".85" if strong else ".55"
     return (
         f'<ellipse cx="{f.lx - 26}" cy="{f.ey + 46}" rx="24" ry="13" fill="{BLUSH}" opacity="{o}"/>'
@@ -265,6 +446,19 @@ def blush(f: Face, strong: bool = False) -> str:
 
 
 def mouth(cx: float, y: float, kind: str) -> str:
+    """Draw a mouth.
+
+    Args:
+        cx (float): Centre x.
+        y (float): Top y.
+        kind (str): cat, smile, open, tongue, o, frown, wobbly or flat.
+
+    Returns:
+        str: SVG markup.
+
+    Raises:
+        ValueError: If ``kind`` is unknown.
+    """
     if kind == "cat":
         return (
             f'<path d="M{cx - 30} {y} q15 18 30 0 q15 18 30 0" stroke="{INK}" stroke-width="8" fill="none" '
@@ -299,8 +493,19 @@ def mouth(cx: float, y: float, kind: str) -> str:
 # --- characters --------------------------------------------------------------
 
 
-@dataclass
+@dataclass(frozen=True, slots=True)
 class Look:
+    """Colours of a cat or dog.
+
+    Attributes:
+        fur (str): Main fur colour.
+        shade (str): Darker fur for paw lines and dog ears.
+        inner (str): Inner ear colour.
+        belly (str): Belly and muzzle colour.
+        stripe (str | None): Tabby stripes (cats), or None.
+        patch (str | None): Eye patch (dogs), or None.
+    """
+
     fur: str
     shade: str
     inner: str = "#ffb3c1"
@@ -309,10 +514,11 @@ class Look:
     patch: str | None = None
 
 
-GINGER = Look("#f6a24b", "#e07f26", stripe="#d9731c")
-GREY = Look("#a9b4c8", "#8592aa", stripe="#77839b")
-BEAGLE = Look("#f2d0a4", "#b46b37", patch="#b46b37", inner="#8f4f26")
-HUSKY = Look("#9fb1c9", "#6f84a3", belly="#ffffff", inner="#ffffff")
+# Coat presets for cat() and dog(); dog() checks for HUSKY by identity.
+GINGER: Look = Look("#f6a24b", "#e07f26", stripe="#d9731c")
+GREY: Look = Look("#a9b4c8", "#8592aa", stripe="#77839b")
+BEAGLE: Look = Look("#f2d0a4", "#b46b37", patch="#b46b37", inner="#8f4f26")
+HUSKY: Look = Look("#9fb1c9", "#6f84a3", belly="#ffffff", inner="#ffffff")
 
 
 def cat(
@@ -328,7 +534,24 @@ def cat(
     dy: float = 0.0,
     hat: str = "",
 ) -> str:
-    """A round cat: body, head, ears, tail. [paws]: down, wave, up, none, hold."""
+    """Draw a round cat: body, head, ears and tail.
+
+    Args:
+        look (Look): Colours.
+        eye (str): Eye kind, see ``eyes``.
+        mouth_kind (str): Mouth kind, see ``mouth``.
+        paws (str): down, wave, up, hold, thumb or none.
+        extras (str): SVG drawn on top of the cat.
+        under (str): SVG drawn behind the cat.
+        tail (float): Tail swing, 0 at rest.
+        blush_strong (bool): Whether the blush is more opaque.
+        tilt (float): Rotation in degrees.
+        dy (float): Vertical offset.
+        hat (str): santa, beanie, antlers or "" for none.
+
+    Returns:
+        str: SVG markup.
+    """
     f = Face(200, 312, 238, 280)
     tw = 30 * tail
     body = (
@@ -389,7 +612,25 @@ def dog(
     hat: str = "",
     ear_lift: float = 0.0,
 ) -> str:
-    """A round dog with floppy ears."""
+    """Draw a round dog with floppy ears (pointed ears for the husky).
+
+    Args:
+        look (Look): Colours; ``HUSKY`` also changes ears and face.
+        eye (str): Eye kind, see ``eyes``.
+        mouth_kind (str): Mouth kind, see ``mouth`` ("cat" becomes "smile").
+        paws (str): down, wave, up, hold, thumb or none.
+        extras (str): SVG drawn on top of the dog.
+        under (str): SVG drawn behind the dog.
+        tail (float): Tail swing, 0 at rest.
+        blush_strong (bool): Whether the blush is more opaque.
+        tilt (float): Rotation in degrees.
+        dy (float): Vertical offset.
+        hat (str): santa, beanie, antlers or "" for none.
+        ear_lift (float): Rotation of the floppy ears in degrees.
+
+    Returns:
+        str: SVG markup.
+    """
     f = Face(204, 308, 222, 296)
     tw = 26 * tail
     ear = look.inner if look is HUSKY else look.shade
@@ -434,7 +675,27 @@ def dog(
 
 
 def _paws(look: Look, paws: str) -> str:
+    """Draw the paws of a cat or dog.
+
+    Args:
+        look (Look): Colours.
+        paws (str): down, wave, up, hold, thumb; anything else draws none.
+
+    Returns:
+        str: SVG markup.
+    """
+
     def paw(x: float, y: float, rot: float = 0) -> str:
+        """Draw one paw.
+
+        Args:
+            x (float): Centre x.
+            y (float): Centre y.
+            rot (float): Rotation in degrees.
+
+        Returns:
+            str: SVG markup.
+        """
         return (
             f'<g transform="translate({x} {y}) rotate({rot})"><ellipse rx="34" ry="28" fill="{look.fur}"/>'
             f'<path d="M-10 -6 v14 M10 -6 v14" stroke="{look.shade}" stroke-width="5" stroke-linecap="round"/></g>'
@@ -472,6 +733,14 @@ def _paws(look: Look, paws: str) -> str:
 
 
 def tree(lights_phase: float | None = None) -> str:
+    """Draw a Christmas tree with baubles and a star.
+
+    Args:
+        lights_phase (float | None): Twinkle animation phase in [0, 1), or None for steady lights.
+
+    Returns:
+        str: SVG markup.
+    """
     out = (
         '<rect x="226" y="400" width="60" height="60" rx="10" fill="#8a5a32"/>'
         '<path d="M256 70 L380 220 H330 L420 330 H360 L450 420 H62 L152 330 H92 L182 220 H132 Z" fill="#2a9d55" '
@@ -504,6 +773,16 @@ def tree(lights_phase: float | None = None) -> str:
 
 
 def gift(color: str = "#e63946", ribbon: str = "#ffd23f", lid_lift: float = 0.0) -> str:
+    """Draw a wrapped gift.
+
+    Args:
+        color (str): Paper colour.
+        ribbon (str): Ribbon colour.
+        lid_lift (float): How far the lid is lifted.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<rect x="120" y="230" width="272" height="220" rx="18" fill="{color}"/>'
         f'<rect x="232" y="230" width="48" height="220" fill="{ribbon}"/>'
@@ -517,6 +796,15 @@ def gift(color: str = "#e63946", ribbon: str = "#ffd23f", lid_lift: float = 0.0)
 
 
 def gingerbread(eye: str = "normal", arm: float = 0.0) -> str:
+    """Draw a gingerbread figure.
+
+    Args:
+        eye (str): Eye kind, see ``eyes``.
+        arm (float): Arm rotation in degrees.
+
+    Returns:
+        str: SVG markup.
+    """
     f = Face(226, 286, 150, 186, eye=0.7)
     return (
         '<g fill="#c47a3c">'
@@ -537,6 +825,11 @@ def gingerbread(eye: str = "normal", arm: float = 0.0) -> str:
 
 
 def candy_cane() -> str:
+    """Draw a candy cane with a holly bow.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         '<path d="M300 470 V200 A80 80 0 0 0 140 200" stroke="#ffffff" stroke-width="64" fill="none" stroke-linecap="round"/>'
         '<path d="M300 470 V200 A80 80 0 0 0 140 200" stroke="#e63946" stroke-width="64" fill="none" stroke-linecap="round" stroke-dasharray="36 36"/>'
@@ -549,6 +842,11 @@ def candy_cane() -> str:
 
 
 def stocking() -> str:
+    """Draw a Christmas stocking with a candy cane peeking out.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         '<path d="M170 140 H330 V320 L380 360 a60 60 0 0 1 -60 110 L150 400 a60 60 0 0 1 20 -80 Z" fill="#e63946"/>'
         '<path d="M330 360 l50 0 a60 60 0 0 1 -60 110 Z" fill="#ffffff" opacity="0"/>'
@@ -562,6 +860,11 @@ def stocking() -> str:
 
 
 def candy_peek() -> str:
+    """Draw the top of a candy cane behind the stocking cuff.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         '<path d="M310 100 V20 A30 30 0 0 1 370 20" stroke="#ffffff" stroke-width="22" fill="none" stroke-linecap="round"/>'
         '<path d="M310 100 V20 A30 30 0 0 1 370 20" stroke="#e63946" stroke-width="22" fill="none" stroke-dasharray="14 14" stroke-linecap="round"/>'
@@ -570,6 +873,15 @@ def candy_peek() -> str:
 
 
 def bauble(color: str = "#c77dff", swing: float = 0.0) -> str:
+    """Draw a hanging bauble.
+
+    Args:
+        color (str): Bauble colour.
+        swing (float): Swing in degrees around the hook.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<g transform="rotate({swing} 256 60)">'
         '<path d="M256 20 V140" stroke="#ffd23f" stroke-width="8"/>'
@@ -584,6 +896,17 @@ def bauble(color: str = "#c77dff", swing: float = 0.0) -> str:
 
 
 def snowman(eye: str = "normal", arm: float = 0.0, scarf_swing: float = 0.0, hat: bool = True) -> str:
+    """Draw a snowman with scarf and optional top hat.
+
+    Args:
+        eye (str): Eye kind, see ``eyes``.
+        arm (float): Arm rotation in degrees.
+        scarf_swing (float): Sideways offset of the scarf end.
+        hat (bool): Whether to draw the top hat.
+
+    Returns:
+        str: SVG markup.
+    """
     f = Face(226, 286, 150, 196, eye=0.75)
     out = (
         f'<path transform="rotate({-arm} 160 300)" d="M160 300 L70 230 M100 254 L72 270 M102 252 L96 216" stroke="#8a5a32" stroke-width="12" stroke-linecap="round" fill="none"/>'
@@ -613,6 +936,15 @@ def snowman(eye: str = "normal", arm: float = 0.0, scarf_swing: float = 0.0, hat
 
 
 def mitten(color: str = "#e63946", wave: float = 0.0) -> str:
+    """Draw a knitted mitten.
+
+    Args:
+        color (str): Mitten colour.
+        wave (float): Rotation in degrees.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<g transform="rotate({wave} 256 430)">'
         f'<path d="M180 400 V220 a80 80 0 0 1 150 -30 L330 200 a40 40 0 0 1 70 40 L340 330 V400 Z" fill="{color}"/>'
@@ -623,6 +955,14 @@ def mitten(color: str = "#e63946", wave: float = 0.0) -> str:
 
 
 def sled(bounce: float = 0.0) -> str:
+    """Draw a sled.
+
+    Args:
+        bounce (float): Vertical offset.
+
+    Returns:
+        str: SVG markup.
+    """
     return (
         f'<g transform="translate(0 {bounce})">'
         '<path d="M80 380 H400 a40 40 0 0 0 40 -40" stroke="#8a5a32" stroke-width="16" fill="none" stroke-linecap="round"/>'
@@ -633,11 +973,28 @@ def sled(bounce: float = 0.0) -> str:
 
 
 def snow_ground() -> str:
+    """Draw a snow drift along the bottom.
+
+    Returns:
+        str: SVG markup.
+    """
     return '<path d="M40 470 C100 430 180 450 256 440 C340 430 420 440 472 470 Z" fill="#ffffff" stroke="#d6e4f0" stroke-width="6"/>'
 
 
 def falling_snow(t: float, n: int = 14, seed: int = 3) -> str:
-    out = []
+    """Draw falling snowflakes as an overlay (outside the die-cut edge).
+
+    The positions come from a small linear congruential generator, so the same seed gives the same snow.
+
+    Args:
+        t (float): Animation phase in [0, 1).
+        n (int): Number of flakes.
+        seed (int): Seed for the flake positions.
+
+    Returns:
+        str: SVG markup wrapped in ``<!--over-->`` markers.
+    """
+    out: list[str] = []
     rng = seed
     for i in range(n):
         rng = (rng * 1103515245 + 12345) & 0x7FFFFFFF
@@ -655,7 +1012,8 @@ def falling_snow(t: float, n: int = 14, seed: int = 3) -> str:
 
 # --- Pip, the Sticker Shim magpie --------------------------------------------
 
-PIP_DEFS = (
+# Blue-green-violet sheen of magpie feathers, used by every Pip sticker.
+PIP_DEFS: str = (
     '<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">'
     '<stop offset="0" stop-color="#1d6fd6"/><stop offset=".5" stop-color="#1fb7a5"/><stop offset="1" stop-color="#6a3fd1"/>'
     "</linearGradient>"
@@ -672,7 +1030,24 @@ def pip(
     dy: float = 0.0,
     hat: str = "",
 ) -> str:
-    """Pip faces right. [held]: sticker, none, heart. [wing]: 0 folded, 1 raised (waving)."""
+    """Draw Pip the magpie, facing right.
+
+    Args:
+        eye (str): normal, happy, closed, heart, big or sad.
+        beak_open (bool): Whether the beak is open (then nothing is held).
+        held (str): sticker, heart or none.
+        wing (float): 0 folded, 1 raised (waving).
+        extras (str): SVG drawn on top of Pip.
+        tilt (float): Rotation in degrees.
+        dy (float): Vertical offset.
+        hat (str): santa, beanie or "" for none.
+
+    Returns:
+        str: SVG markup.
+
+    Raises:
+        ValueError: If ``eye`` is unknown.
+    """
     ex, ey = 345, 160
     if eye == "normal":
         e = (

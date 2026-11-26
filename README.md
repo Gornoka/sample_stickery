@@ -29,12 +29,13 @@ Pip the magpie is Sticker Shim's mascot.
 ## Layout
 
 ```
-art/        art.py (characters, props), packs.py (packs, stickers, names, emojis, groups), renderer
+art/        Python package: draw.py (characters, props), packs.py (packs, stickers, names, emojis, groups),
+            build_images.py + render.js (renderer), sheet.py (contact sheet)
 images/     rendered 512x512 PNGs and animated WebPs, one folder per pack (plus tray.png)
 packs/      stickers.py make output (contents.json with names and emojis)
 site/       stickers.py publish output: index.json plus pack folders, served for URL import
 build.py    images/ -> packs/ -> site/ (needs a sticker_shim checkout for tools/stickers.py)
-release.py  site/ -> dist/*.zip (stdlib only)
+release.py  site/ -> dist/*.zip (no Sticker Shim tools needed)
 ```
 
 ## Rebuild
@@ -43,14 +44,21 @@ Needs Python 3.14, [uv](https://docs.astral.sh/uv/), Node with Playwright and Ch
 `sticker_shim` next to this repository.
 
 ```sh
-python art/build_images.py images            # render; optional args: pack ids or <id>/<stem> to render only those
-python art/sheet.py images preview.png       # contact sheet
-python build.py --tools ../sticker_shim/tools
-python release.py                            # dist/*.zip
+uv run art/build_images.py images            # render; optional args: pack ids or <id>/<stem> to render only those
+uv run art/sheet.py images preview.png       # contact sheet
+uv run build.py --tools ../sticker_shim/tools
+uv run release.py                            # dist/*.zip
+```
+
+Every script has `--help`. Checks (config: `ruff.toml`, `pyproject.toml`):
+
+```sh
+uvx ruff@0.17.3 check . && uvx ruff@0.17.3 format --check .
+uv run --extra typecheck basedpyright
 ```
 
 ## Release
 
-Push a tag `v<N>` or run the `Release` workflow by hand with a tag name: it runs `release.py` and attaches `dist/*.zip` to a GitHub release, with
-`RELEASE_NOTES.md` as the text. Without Actions: `python release.py`, then
+Push a tag `v<N>` or run the `Release` workflow by hand with a tag name: it runs `uv run release.py` and attaches `dist/*.zip` to a GitHub release, with
+`RELEASE_NOTES.md` as the text. Without Actions: `uv run release.py`, then
 `gh release create v<N> dist/*.zip --notes-file RELEASE_NOTES.md`.

@@ -14,10 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.14"
-      - run: python release.py
+      - uses: astral-sh/setup-uv@v7
+      - run: uv run --frozen release.py
       - env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ inputs.tag || github.ref_name }}

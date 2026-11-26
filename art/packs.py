@@ -1,49 +1,114 @@
 """The demo packs: identifiers, names, stickers (file stem, sticker name, emojis, art) and groups."""
 
-from __future__ import annotations
-
 import math
 from collections.abc import Callable
 from dataclasses import dataclass
 
-import art as a
-from art import GINGER, GREY, HUSKY, svg
+from art import draw as a
+from art.draw import GINGER, GREY, HUSKY, svg
 
-FRAMES = 24
-FPS = 12
+# Animated stickers: 24 frames at 12 fps give a 2 s loop, within the 3 s Telegram and Signal allow.
+FRAMES: int = 24
+FPS: int = 12
 
 
-@dataclass
+@dataclass(frozen=True, slots=True)
 class Sticker:
+    """One sticker of a pack.
+
+    Attributes:
+        stem (str): File name without extension, also the sort order.
+        name (str): Sticker name shown in the app.
+        emojis (list[str]): Emojis the sticker is filed under.
+        still (str | None): SVG of a still sticker, or None if animated.
+        frame (Callable[[float], str] | None): SVG of an animated sticker at phase t in [0, 1), or None if still.
+        defs (str): Extra ``<defs>`` content of the art.
+    """
+
     stem: str
     name: str
     emojis: list[str]
     still: str | None = None
-    frame: Callable[[float], str] | None = None  # t in [0, 1)
+    frame: Callable[[float], str] | None = None
     defs: str = ""
 
 
-@dataclass
+@dataclass(frozen=True, slots=True)
 class Pack:
+    """One demo pack.
+
+    Attributes:
+        id (str): Pack identifier, also the folder name.
+        name (str): Pack name shown in the app.
+        stickers (list[Sticker]): The stickers, in order.
+        tray (str): Stem of the sticker used as the tray icon.
+    """
+
     id: str
     name: str
     stickers: list[Sticker]
-    tray: str  # stem of the tray sticker
+    tray: str
 
     @property
     def animated(self) -> bool:
+        """Whether the pack holds animated stickers.
+
+        Returns:
+            bool: True if any sticker has a frame function.
+        """
         return any(s.frame for s in self.stickers)
 
 
+@dataclass(frozen=True, slots=True)
+class Group:
+    """A pack group as written to ``shim.json`` (field order is the JSON key order).
+
+    Attributes:
+        key (str): Group key, unique in the export.
+        name (str): Group name shown in the app.
+        parent (str | None): Key of the parent group, or None for a top group.
+        packs (list[str]): Identifiers of the packs in the group.
+    """
+
+    key: str
+    name: str
+    parent: str | None
+    packs: list[str]
+
+
 def S(stem: str, name: str, emojis: str, body: str, defs: str = "") -> Sticker:
+    """Build a still sticker.
+
+    Args:
+        stem (str): File name without extension.
+        name (str): Sticker name.
+        emojis (str): Space-separated emojis.
+        body (str): SVG body of the art.
+        defs (str): Extra ``<defs>`` content.
+
+    Returns:
+        Sticker: The sticker with its complete SVG.
+    """
     return Sticker(stem, name, emojis.split(), still=svg(body, defs))
 
 
 def A(stem: str, name: str, emojis: str, frame: Callable[[float], str], defs: str = "") -> Sticker:
+    """Build an animated sticker.
+
+    Args:
+        stem (str): File name without extension.
+        name (str): Sticker name.
+        emojis (str): Space-separated emojis.
+        frame (Callable[[float], str]): SVG body at phase t in [0, 1).
+        defs (str): Extra ``<defs>`` content.
+
+    Returns:
+        Sticker: The sticker with a frame function that returns complete SVGs.
+    """
     return Sticker(stem, name, emojis.split(), frame=lambda t: svg(frame(t), defs), defs=defs)
 
 
-CATS = Pack(
+CATS: Pack = Pack(
     "demo-cats",
     "Demo Cats",
     [
@@ -102,7 +167,7 @@ CATS = Pack(
     "02_happy",
 )
 
-DOGS = Pack(
+DOGS: Pack = Pack(
     "demo-dogs",
     "Demo Dogs",
     [
@@ -162,7 +227,7 @@ DOGS = Pack(
     "02_happy",
 )
 
-CHRISTMAS = Pack(
+CHRISTMAS: Pack = Pack(
     "demo-christmas",
     "Demo Christmas",
     [
@@ -217,24 +282,54 @@ CHRISTMAS = Pack(
 
 
 def _snowman(t: float) -> str:
+    """Waving snowman in falling snow.
 
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     return a.falling_snow(t, 10, 7) + a.snowman(
         "happy", arm=12 * math.sin(2 * math.pi * t), scarf_swing=10 * math.sin(2 * math.pi * t)
     )
 
 
 def _flake(t: float) -> str:
+    """Turning snowflake with a blue outline.
+
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     return a.snowflake(256, 256, 190, "#7fc8f8", rot=60 * t, width=24) + a.snowflake(
         256, 256, 190, "#ffffff", rot=60 * t, width=10
     )
 
 
 def _cocoa(t: float) -> str:
+    """Hot cocoa with rising steam.
+
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     return a.mug(256, 330, 1.6, "#e63946", "#7a4a2a", steam=t)
 
 
 def _cat_cold(t: float) -> str:
+    """Shivering grey cat with beanie and scarf.
 
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     shiver = 5 * math.sin(2 * math.pi * t * 6)
     return (
         f'<g transform="translate({shiver:.1f} 0)">'
@@ -247,11 +342,26 @@ def _cat_cold(t: float) -> str:
 
 
 def _tree_lights(t: float) -> str:
+    """Christmas tree with twinkling lights.
+
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     return a.tree(lights_phase=t)
 
 
 def _dog_snow(t: float) -> str:
+    """Husky hopping in the snow.
 
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     hop = -abs(math.sin(math.pi * t * 2)) * 40
     return (
         a.snow_ground()
@@ -261,13 +371,20 @@ def _dog_snow(t: float) -> str:
 
 
 def _pip_snow(t: float) -> str:
+    """Pip flapping in the snow.
 
+    Args:
+        t (float): Animation phase in [0, 1).
+
+    Returns:
+        str: SVG body of the frame.
+    """
     return a.pip(
         eye="happy", held="none", hat="beanie", wing=0.5 + 0.5 * math.sin(2 * math.pi * t * 2)
     ) + a.falling_snow(t, 10, 9)
 
 
-WINTER = Pack(
+WINTER: Pack = Pack(
     "demo-winter",
     "Demo Snow Days",
     [
@@ -282,7 +399,7 @@ WINTER = Pack(
     "02_snowflake",
 )
 
-PIP = Pack(
+PIP: Pack = Pack(
     "demo-pip",
     "Pip the Magpie",
     [
@@ -322,11 +439,11 @@ PIP = Pack(
     "02_shiny",
 )
 
-PACKS = [CATS, DOGS, CHRISTMAS, WINTER, PIP]
+PACKS: list[Pack] = [CATS, DOGS, CHRISTMAS, WINTER, PIP]
 
 # Two top groups; "Christmas" is a subgroup of "Winter" to show nesting.
-GROUPS = [
-    {"key": "g1", "name": "Pets", "parent": None, "packs": [CATS.id, DOGS.id, PIP.id]},
-    {"key": "g2", "name": "Winter", "parent": None, "packs": [WINTER.id]},
-    {"key": "g3", "name": "Christmas", "parent": "g2", "packs": [CHRISTMAS.id]},
+GROUPS: list[Group] = [
+    Group("g1", "Pets", None, [CATS.id, DOGS.id, PIP.id]),
+    Group("g2", "Winter", None, [WINTER.id]),
+    Group("g3", "Christmas", "g2", [CHRISTMAS.id]),
 ]
