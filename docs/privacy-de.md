@@ -8,9 +8,9 @@ lang: de
 
 # Datenschutzerklärung von Shinybox
 
-Stand: [Datum]
+Stand: 28. November 2026
 
-Shinybox („die App“, Paket com.gornoka.stickers) wird von Lukas Hennies, [Kontakt-E-Mail] entwickelt. Diese Erklärung beschreibt, was mit Daten passiert, wenn du die App nutzt.
+Shinybox („die App“, Paket com.gornoka.stickers) wird von Lukas Hennies entwickelt. Diese Erklärung beschreibt, was mit Daten passiert, wenn du die App nutzt.
 
 ## Kurz gesagt
 Shinybox hat keinen Server, keine Nutzerkonten, keine Werbung und keine Analyse- oder Tracking-Tools. Der Entwickler erhält keine Daten aus der App.
@@ -40,4 +40,4 @@ Der Entwickler speichert keine Daten von dir. Zum Löschen lösche die Daten in 
 Änderungen dieser Erklärung werden auf dieser Seite mit neuem Datum veröffentlicht.
 
 ## Kontakt
-Lukas Hennies, [Kontakt-E-Mail]
+Lukas Hennies. Fragen zu dieser Erklärung: als Issue unter https://github.com/Gornoka/sample_stickery/issues

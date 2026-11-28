@@ -7,9 +7,9 @@ permalink: /privacy/
 
 # Shinybox privacy policy
 
-Last updated: [date]
+Last updated: 28 November 2026
 
-Shinybox ("the app", package com.gornoka.stickers) is made by Lukas Hennies, [contact e-mail]. This policy explains what happens to data when you use the app.
+Shinybox ("the app", package com.gornoka.stickers) is made by Lukas Hennies. This policy explains what happens to data when you use the app.
 
 ## Summary
 Shinybox has no server, no user accounts, no ads and no analytics or tracking. The developer receives no data from the app.
@@ -39,4 +39,4 @@ The developer does not hold any of your data. To delete data, delete it in the a
 Changes to this policy are published on this page with a new date.
 
 ## Contact
-Lukas Hennies, [contact e-mail]
+Lukas Hennies. Questions about this policy: open an issue at https://github.com/Gornoka/sample_stickery/issues
